@@ -1,9 +1,0 @@
-# Ignore everything except ODL files
-*
-!.gitignore
-!ODL-homepage.html
-!project.html
-!projects.html
-!ODL Logo.svg
-!images/
-!logos/
