@@ -1,0 +1,891 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="ODL project details — apartment plans, specifications, construction progress and location at Jolshiri Abashon.">
+<title>Project Details | ODL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =======================================================================
+   ODL — project details
+   1. Design tokens   2. Base   3. Header   4. Title & breadcrumb
+   5. Gallery hero    6. Stats  7. About / facts  8. Key features
+   9. More pictures  10. Progress  11. Location  12. Inquiry CTA
+  13. Related projects  14. Footer  15. Responsive
+   ======================================================================= */
+
+/* ---------- 1. Design tokens ---------- */
+:root{
+  /* brand — calm steel-blue system */
+  --forest:#3D5C7A;
+  --forest-2:#3D5C7A;
+  --forest-3:#314B64;
+  --sage:#3D5C7A;
+  --sage-pale:#E7EFF1;
+
+  /* surfaces & text */
+  --bg:#FFFFFF;
+  --surface:#FFFFFF;
+  --surface-soft:#E7EFF1;
+  --heading:#3D5C7A;
+  --ink:#3D5C7A;
+  --body-text:#5B6478;
+  --muted:#5B6478;
+  --line:#D2DCE3;
+  --line-strong:#242834;
+  --accent:#3D5C7A;
+
+  /* project status (muted, calm) */
+  --st-ongoing:#8A6D3B;
+  --st-handover:#5A7D6A;
+  --st-upcoming:#3D5C7A;
+
+  /* typography */
+  --display:"Oswald","Inter",sans-serif;
+  --sans:"Inter",system-ui,-apple-system,sans-serif;
+  --fs-eyebrow:.72rem;
+  --fs-small:.875rem;
+  --fs-body:1.0625rem;
+  --fs-lead:clamp(1.02rem, .98rem + .3vw, 1.25rem);
+  --fs-h1:clamp(2.6rem, 1.5rem + 4.6vw, 5.25rem);
+  --fs-h2:clamp(1.45rem, 1.25rem + 1.1vw, 2.15rem);
+  --fs-h3:clamp(1.1rem, 1rem + .5vw, 1.35rem);
+  --fs-stat:clamp(1.35rem, 1.15rem + 1vw, 1.85rem);
+  --lh-display:.96;
+  --lh-body:1.72;
+  --measure:62ch;
+
+  /* spacing scale */
+  --sp-1:.25rem; --sp-2:.5rem; --sp-3:.75rem; --sp-4:1rem;
+  --sp-5:1.5rem; --sp-6:2rem; --sp-7:3rem; --sp-8:4rem;
+  --section-y:clamp(3rem, 2rem + 3.6vw, 5.5rem);
+  --gutter:clamp(1.25rem, .9rem + 1.6vw, 2rem);
+  --container:1200px;
+
+  /* shape */
+  --r-sm:10px; --r-md:16px; --r-lg:22px; --r-pill:999px;
+  --shadow-sm:0 1px 2px rgba(17,17,20,.06), 0 14px 30px -24px rgba(36,40,52,.4);
+  --shadow-md:0 24px 48px -28px rgba(36,40,52,.35);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+body.dark{
+  --bg:#111114;
+  --surface:#161A22;
+  --surface-soft:#161A22;
+  --heading:#E7EFF1;
+  --ink:#E7EFF1;
+  --body-text:#9AA5B8;
+  --muted:#9AA5B8;
+  --line:#2A3140;
+  --line-strong:#7FA3C4;
+  --accent:#7FA3C4;
+  --sage-pale:#1A2029;
+  color-scheme:dark;
+}
+
+/* ---------- 2. Base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--display);font-size:var(--fs-body);line-height:var(--lh-body);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{text-wrap:balance}
+p{text-wrap:pretty;text-align:justify;font-family:var(--display)}
+:focus-visible{outline:3px solid var(--sage);outline-offset:3px;border-radius:4px}
+.wrap{width:100%;max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.sec{padding-top:var(--section-y)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+
+/* shared bits */
+.kick{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:var(--fs-eyebrow);font-weight:600;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--accent);
+}
+.kick::before{content:"";width:26px;height:2px;border-radius:2px;background:currentColor;opacity:.55}
+.shead{margin-bottom:clamp(18px,2.2vw,30px);max-width:74ch}
+.shead .kick{margin-bottom:clamp(10px,1.4vw,16px)}
+.shead h2{
+  margin:0;font-family:var(--display);font-weight:500;
+  font-size:var(--fs-h2);line-height:1.02;letter-spacing:.02em;
+  text-transform:uppercase;color:var(--heading);
+}
+.shead p{margin:clamp(10px,1.4vw,14px) 0 0;color:var(--body-text);font-weight:300;max-width:52ch}
+.subhead{
+  margin:var(--sp-6) 0 var(--sp-4);
+  font-size:var(--fs-eyebrow);font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);
+}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  min-height:46px;padding:14px 26px;border:0;border-radius:var(--r-pill);
+  font-family:var(--display);font-size:.95rem;font-weight:500;line-height:1;
+  letter-spacing:.01em;text-decoration:none;cursor:pointer;white-space:nowrap;
+  transition:background .2s var(--ease),color .2s var(--ease),box-shadow .2s var(--ease),transform .2s var(--ease);
+}
+.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn-primary{background:#3D5C7A;color:#fff}
+.btn-primary:hover{background:#314B64}
+.btn-outline{background:transparent;color:#3D5C7A;box-shadow:inset 0 0 0 1px #3D5C7A}
+.btn-outline:hover{box-shadow:inset 0 0 0 1px #3D5C7A;color:#3D5C7A}
+body.dark .btn-outline:hover{color:var(--heading)}
+.btn-solid-w{background:#fff;color:#3D5C7A}
+.btn-solid-w:hover{background:#E7EFF1}
+.btn-ghost-w{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.55)}
+.btn-ghost-w:hover{box-shadow:inset 0 0 0 1.5px #fff}
+.btn-wa{background:#1FA855;color:#fff}
+.btn-wa:hover{background:#178245}
+.fine{font-size:.8rem;color:var(--muted);margin:var(--sp-3) 0 0}
+
+/* ---------- 3. Header ---------- */
+.hdr{position:sticky;top:0;z-index:60;background:var(--bg);border-bottom:1px solid var(--line)}
+.hdr .wrap{display:flex;align-items:center;gap:clamp(14px,2.5vw,34px);min-height:66px}
+.hdr .logo{display:flex;flex-direction:column;align-items:flex-start;gap:2px;flex:none;text-decoration:none}
+.hdr .logo img{height:50px;width:auto;max-width:200px;object-fit:contain}
+.hdr .logo .logo-dark{display:none}
+.hdr .logo .tagline{font:500 clamp(.58rem,.68vw,.76rem)/1.2 var(--display);letter-spacing:.28em;text-transform:uppercase;color:var(--muted);white-space:nowrap;text-decoration:none}
+body.dark .hdr .logo .logo-light{display:none}
+body.dark .hdr .logo .logo-dark{display:block}
+.hdr nav{display:flex;gap:clamp(14px,2vw,28px);margin-left:auto}
+.hdr nav a{
+  position:relative;padding:10px 0;text-decoration:none;
+  font-family:var(--display);font-weight:500;font-size:.82rem;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--body-text);
+  transition:color .2s var(--ease);
+}
+.hdr nav a::after{
+  content:"";position:absolute;left:0;right:0;bottom:4px;height:2px;
+  background:currentColor;transform:scaleX(0);transform-origin:left;
+  transition:transform .28s var(--ease);
+}
+.hdr nav a:hover{color:var(--heading)}
+.hdr nav a:hover::after,.hdr nav a.on::after{transform:scaleX(1)}
+.hdr nav a.on{color:var(--accent)}
+.hdr .tools{display:flex;align-items:center;gap:10px}
+.icon-btn{
+  width:42px;height:42px;border-radius:50%;border:1px solid var(--line);
+  background:var(--bg);color:var(--body-text);display:grid;place-items:center;
+  cursor:pointer;transition:border-color .2s var(--ease),color .2s var(--ease);
+}
+.icon-btn:hover{border-color:var(--sage);color:var(--heading)}
+.icon-btn svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.theme-btn .i-sun{display:none}
+body.dark .theme-btn .i-sun{display:block}
+body.dark .theme-btn .i-moon{display:none}
+
+/* ---------- 4. Title & breadcrumb ---------- */
+.crumb{
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+  padding-top:clamp(18px,2.4vw,30px);font-size:.8rem;color:var(--muted);
+}
+.crumb a{text-decoration:none;transition:color .2s var(--ease)}
+.crumb a:hover{color:var(--accent)}
+.crumb .sep{opacity:.45}
+.crumb [aria-current]{color:var(--ink)}
+.phead{padding:clamp(18px,2.4vw,28px) 0 clamp(24px,3vw,40px)}
+.phead .kick{margin-bottom:clamp(12px,1.6vw,18px)}
+.phead h1{
+  margin:0;font-family:var(--display);font-weight:600;
+  font-size:var(--fs-h1);line-height:.94;letter-spacing:.01em;
+  text-transform:uppercase;color:var(--heading);
+}
+.phead .loc{
+  display:flex;align-items:center;gap:9px;margin:clamp(12px,1.6vw,20px) 0 0;
+  font-size:var(--fs-lead);font-weight:300;color:var(--body-text);
+}
+.phead .loc svg{
+  width:17px;height:17px;flex:none;stroke:var(--sage);stroke-width:1.8;
+  fill:none;stroke-linecap:round;stroke-linejoin:round;
+}
+
+/* ---------- 5. Gallery hero ---------- */
+.hero .main{
+  position:relative;border-radius:var(--r-lg);overflow:hidden;
+  background:var(--sage-pale);aspect-ratio:16/9;
+}
+.hero .main img{width:100%;height:100%;object-fit:cover;object-position:50% 45%}
+.tag{
+  position:absolute;left:clamp(14px,1.6vw,22px);top:clamp(14px,1.6vw,22px);
+  display:inline-flex;align-items:center;gap:8px;padding:8px 14px;
+  border-radius:var(--r-pill);background:rgba(255,255,255,.94);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#3D5C7A;
+}
+.tag i{width:8px;height:8px;border-radius:50%;background:var(--st-ongoing)}
+.thumbs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(8px,1vw,12px);margin-top:clamp(8px,1vw,12px)}
+.thumbs button{
+  position:relative;padding:0;border:0;background:none;cursor:pointer;
+  aspect-ratio:4/3;border-radius:var(--r-sm);overflow:hidden;
+  opacity:.6;transition:opacity .25s var(--ease),transform .25s var(--ease);
+}
+.thumbs button img{width:100%;height:100%;object-fit:cover;border-radius:var(--r-sm);box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.thumbs button:hover{opacity:1;transform:translateY(-2px)}
+.thumbs button.on{opacity:1}
+.thumbs button.on img{box-shadow:0 0 0 2px var(--accent)}
+
+/* ---------- 6. Stats ---------- */
+.stats-wrap{padding-top:clamp(26px,3.2vw,44px)}
+.stats{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.stats div{
+  display:flex;flex-direction:column;gap:8px;
+  padding:clamp(18px,2vw,28px) clamp(16px,2vw,28px);
+  border-left:1px solid var(--line);
+}
+.stats div:first-child{border-left:0;padding-left:0}
+.stats span{
+  font-size:var(--fs-eyebrow);font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);
+}
+.stats b{
+  font-family:var(--display);font-weight:500;font-size:var(--fs-stat);
+  line-height:1.1;letter-spacing:.02em;color:var(--ink);
+}
+
+/* ---------- 7. About & project facts ---------- */
+.info{
+  display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);
+  gap:clamp(34px,5vw,80px);align-items:start;
+}
+.prose p{
+  max-width:var(--measure);margin:0 0 1.1em;
+  font-size:var(--fs-body);line-height:1.82;color:var(--body-text);
+}
+.prose p:last-child{margin-bottom:0}
+.specs{border-top:1px solid var(--line)}
+.specs div{
+  display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+  padding:13px 0;border-bottom:1px solid var(--line);
+}
+.specs span{
+  font-size:var(--fs-eyebrow);font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);
+}
+.specs b{font-size:.98rem;font-weight:500;color:var(--ink);text-align:right}
+.fact-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:var(--sp-5)}
+
+/* ---------- 8. Key features ---------- */
+.feats{
+  list-style:none;margin:0;padding:0;
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0 clamp(24px,4vw,52px);
+}
+.feats li{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:16px 0;border-bottom:1px solid var(--line);
+  font-size:.98rem;line-height:1.55;color:var(--ink);
+}
+.feats .ck{
+  width:15px;height:15px;margin-top:.4em;flex:none;
+  stroke:var(--sage);stroke-width:2.8;fill:none;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.amen{display:flex;flex-wrap:wrap;gap:10px 24px;margin:0;padding:0;list-style:none}
+.amen span{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:.92rem;color:var(--body-text);
+}
+.amen span::before{
+  content:"";width:5px;height:5px;border-radius:50%;
+  background:var(--sage);flex:none;
+}
+
+/* ---------- 9. More pictures ---------- */
+.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,1.4vw,18px)}
+.gallery figure{
+  position:relative;margin:0;border-radius:var(--r-md);overflow:hidden;
+  background:var(--sage-pale);aspect-ratio:4/3;cursor:pointer;
+}
+.gallery img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .55s var(--ease);
+}
+.gallery figure:hover img{transform:scale(1.05)}
+.gallery figcaption{
+  position:absolute;left:12px;bottom:12px;padding:6px 12px;
+  border-radius:var(--r-pill);background:rgba(17,17,20,.62);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  font-size:.74rem;font-weight:500;letter-spacing:.03em;color:#fff;
+}
+
+/* ---------- 10. Construction progress ---------- */
+.prog{
+  padding:clamp(24px,3vw,38px);border:1px solid var(--line);
+  border-radius:var(--r-lg);background:var(--surface-soft);
+}
+.prog .prow{
+  display:flex;justify-content:space-between;align-items:baseline;
+  gap:12px 24px;flex-wrap:wrap;margin-bottom:clamp(16px,2vw,22px);
+}
+.prog .prow b{
+  font-family:var(--display);font-weight:500;
+  font-size:clamp(2rem, 1.5rem + 2.2vw, 3rem);line-height:1;
+  letter-spacing:.01em;color:var(--heading);
+}
+.prog .prow b small{
+  display:block;margin-top:6px;font:600 var(--fs-eyebrow)/1.4 var(--sans);
+  letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+}
+.prog .prow span{
+  max-width:36ch;font-size:.95rem;color:var(--body-text);text-align:right;
+}
+.bar{height:6px;border-radius:var(--r-pill);background:var(--sage-pale);overflow:hidden}
+.bar i{
+  display:block;height:100%;width:0;border-radius:var(--r-pill);
+  background:#3D5C7A;transition:width .8s var(--ease);
+}
+
+/* ---------- 11. Location & nearby ---------- */
+.near{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.near li{
+  display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+  padding:18px 0;border-bottom:1px solid var(--line);font-size:1.15rem;
+}
+.near .place{font-weight:500;color:var(--ink)}
+.near .dist{
+  font-size:.85rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);white-space:nowrap;
+}
+
+/* ---------- 12. Inquiry CTA ---------- */
+.cta{
+  margin-top:var(--section-y);background:#111114;color:#E7EFF1;
+  border-radius:var(--r-lg);padding:clamp(28px,4vw,54px);
+  display:grid;grid-template-columns:minmax(0,1.4fr) auto;
+  gap:clamp(24px,4vw,48px);align-items:center;
+}
+.cta .kick{color:#7FA3C4}
+.cta h2{
+  margin:clamp(10px,1.4vw,16px) 0 clamp(10px,1.4vw,14px);
+  font-family:var(--display);font-weight:500;
+  font-size:clamp(1.5rem, 1.2rem + 1.4vw, 2.4rem);
+  line-height:1.04;letter-spacing:.02em;text-transform:uppercase;
+}
+.cta p{margin:0;max-width:48ch;font-weight:300;color:#E7EFF1}
+.cta-a{display:flex;flex-wrap:wrap;gap:12px}
+
+/* ---------- 13. Related projects ---------- */
+.related-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,2.4vw,28px)}
+.card{
+  display:flex;flex-direction:column;border:1px solid var(--line);
+  border-radius:var(--r-md);overflow:hidden;background:var(--surface);
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.card-media{position:relative;display:block;aspect-ratio:4/3;background:var(--sage-pale);overflow:hidden}
+.card-media img{width:100%;height:100%;object-fit:cover;transition:transform .55s var(--ease)}
+.card:hover .card-media img{transform:scale(1.04)}
+.card-body{display:flex;flex-direction:column;flex:1;padding:clamp(18px,2vw,24px)}
+.card-loc{display:flex;align-items:center;gap:7px;margin:0 0 10px;font-size:.82rem;color:var(--muted)}
+.card-loc .pin{width:14px;height:14px;flex:none;stroke:var(--sage);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.card h3{margin:0 0 clamp(16px,2vw,20px);font-family:var(--display);font-weight:500;font-size:var(--fs-h3);line-height:1.1;letter-spacing:.02em;text-transform:uppercase}
+.card h3 a{text-decoration:none}
+.card h3 a:hover{color:var(--accent)}
+.card-meta{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  margin:0 0 clamp(18px,2vw,22px);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.card-meta div{display:flex;flex-direction:column;gap:5px;padding:13px 10px;border-left:1px solid var(--line)}
+.card-meta div:first-child{border-left:0;padding-left:0}
+.card-meta div:last-child{padding-right:0}
+.card-meta dt{font-size:.64rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.card-meta dd{margin:0;font-size:.9rem;font-weight:500;color:var(--ink)}
+.card-cta{margin-top:auto;width:100%}
+
+/* ---------- 14. Footer ---------- */
+footer{
+  margin-top:var(--section-y);background:#111114;color:#E7EFF1;
+  padding:clamp(30px,4vw,48px) 0;font-size:.9rem;
+}
+footer .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+footer a{text-decoration:none;color:#7FA3C4}
+footer a:hover{text-decoration:underline}
+footer .fnav{display:flex;gap:20px;flex-wrap:wrap}
+
+/* ---------- 15. Responsive ---------- */
+@media(max-width:960px){
+  .info{grid-template-columns:1fr;gap:var(--sp-7)}
+  .feats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .related-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cta{grid-template-columns:1fr;align-items:start}
+  .cta-a{justify-content:flex-start}
+}
+@media(max-width:820px){
+  .hdr .wrap{min-height:0;flex-wrap:wrap;padding-top:12px;padding-bottom:12px;gap:0 var(--sp-4)}
+  .hdr .logo img{height:40px}
+  .hdr .logo .tagline{display:none}
+  .hdr .tools{margin-left:auto}
+  .hdr nav{
+    order:3;width:100%;margin:10px 0 0;gap:clamp(16px,4vw,26px);
+    overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
+  }
+  .hdr nav::-webkit-scrollbar{display:none}
+  .hdr nav a{white-space:nowrap;font-size:.76rem}
+  .search-btn{display:none}
+}
+@media(max-width:700px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats div{border-left:0;border-top:1px solid var(--line);padding:16px 0}
+  .stats div:nth-child(1),.stats div:nth-child(2){border-top:0}
+  .stats div:nth-child(odd){padding-right:16px}
+  .stats div:nth-child(even){padding-left:16px;border-left:1px solid var(--line)}
+  .hero .main{aspect-ratio:4/3}
+  .gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .prog .prow span{text-align:left}
+}
+@media(max-width:560px){
+  .feats{grid-template-columns:1fr}
+  .related-grid{grid-template-columns:1fr}
+  .thumbs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .cta-a{width:100%}
+  .cta-a .btn{flex:1}
+}
+
+/* ==========================================================================
+   INVERTED THEME — Brand Native palette
+   ========================================================================== */
+[data-theme="inverted"]{color-scheme:dark}
+[data-theme="inverted"] body{background:#3D5C7A;color:#fff;--bg:#3D5C7A;--surface:#34506B;--surface-soft:#34506B;--heading:#fff;--ink:#fff;--muted:rgba(255,255,255,.75);--line:rgba(255,255,255,.2);--line-strong:#fff;--accent:#fff;--forest:#fff;--forest-deep:#fff;--forest-2:rgba(255,255,255,.9);--sage:#fff;--sage-pale:#34506B;--mist:#34506B;--wash:#34506B;--char:#fff;--f:#fff;--f2:#fff;--f-hover:rgba(255,255,255,.9);--mut:rgba(255,255,255,.75)}
+[data-theme="inverted"] .hdr{background:#34506B;border-bottom-color:rgba(255,255,255,.2)}
+[data-theme="inverted"] .hdr.scrolled{background:#34506B;border-bottom-color:rgba(255,255,255,.2);box-shadow:0 10px 30px -22px rgba(0,0,0,.5)}
+[data-theme="inverted"] .hdr:not(.scrolled){background:#34506B}
+[data-theme="inverted"] .hdr:not(.scrolled).on-dark{background:#34506B}
+[data-theme="inverted"] .hdr nav a{color:#fff}
+[data-theme="inverted"] .hdr nav a.on{color:#fff;opacity:.7}
+[data-theme="inverted"] .hdr .logo .logo-light{display:block;filter:brightness(0) invert(1)}
+[data-theme="inverted"] .hdr .logo .logo-dark{display:none}
+[data-theme="inverted"] .hdr .logo .tagline{color:rgba(255,255,255,.6)}
+[data-theme="inverted"] .icon-btn{border-color:rgba(255,255,255,.2);color:#fff;background:transparent}
+[data-theme="inverted"] .icon-btn:hover{border-color:rgba(255,255,255,.5);color:#fff}
+[data-theme="inverted"] .slider-hero,[data-theme="inverted"] .s1{background:#3D5C7A}
+[data-theme="inverted"] .s1 .copy{color:#fff}
+[data-theme="inverted"] .s1 p{color:rgba(255,255,255,.75)}
+[data-theme="inverted"] .s1 .ghost{opacity:.03}
+[data-theme="inverted"] .s2{background:#34506B;color:#fff}
+[data-theme="inverted"] .s3{background:#34506B;color:#fff}
+[data-theme="inverted"] .s3::after{background:linear-gradient(90deg,rgba(46,58,67,.92) 0%,rgba(56,70,80,.6) 55%,rgba(56,70,80,.3) 100%)}
+[data-theme="inverted"] .sh h2,[data-theme="inverted"] .shead h2{color:#fff}
+[data-theme="inverted"] .sh .kick,[data-theme="inverted"] .shead .kick,[data-theme="inverted"] .kick{color:rgba(255,255,255,.75)}
+[data-theme="inverted"] .sh .kick::before,[data-theme="inverted"] .shead .kick::before,[data-theme="inverted"] .kick::before{background:rgba(255,255,255,.5)}
+[data-theme="inverted"] .card{background:#34506B;border-color:rgba(255,255,255,.2)}
+[data-theme="inverted"] .card:hover{border-color:rgba(255,255,255,.35)}
+[data-theme="inverted"] .card h3{color:#fff}
+[data-theme="inverted"] .card .loc{color:rgba(255,255,255,.75)}
+[data-theme="inverted"] .specs li{color:rgba(255,255,255,.75);border-top-color:rgba(255,255,255,.2)}
+[data-theme="inverted"] .specs b{color:#fff}
+[data-theme="inverted"] .status{background:#34506B;color:#fff;box-shadow:0 8px 18px -10px rgba(0,0,0,.7)}
+[data-theme="inverted"] .card .pic{background:#3D5C7A}
+[data-theme="inverted"] .about,[data-theme="inverted"] .tst{background:#34506B}
+[data-theme="inverted"] .about .txt p{color:rgba(255,255,255,.75)}
+[data-theme="inverted"] .about .txt p:first-of-type{color:#fff}
+[data-theme="inverted"] .vtab{color:rgba(255,255,255,.5)}
+[data-theme="inverted"] .vtab:hover{color:rgba(255,255,255,.8)}
+[data-theme="inverted"] .vtab[aria-selected="true"]{color:#fff}
+[data-theme="inverted"] .vtab::after{color:rgba(255,255,255,.4)}
+[data-theme="inverted"] .vtab[aria-selected="true"]::after{color:#fff}
+[data-theme="inverted"] .vtab::before{background:#fff}
+[data-theme="inverted"] .vtab span{color:rgba(255,255,255,.75)}
+[data-theme="inverted"] .vtab{border-top-color:rgba(255,255,255,.2);border-bottom-color:rgba(255,255,255,.2)}
+[data-theme="inverted"] .vpanel{background:#2B4157}
+[data-theme="inverted"] .vpanel .in{color:#fff}
+[data-theme="inverted"] .vpanel h3{color:#fff}
+[data-theme="inverted"] .vpanel p{color:rgba(255,255,255,.75)}
+[data-theme="inverted"] .bigban{background:#34506B;color:#fff}
+[data-theme="inverted"] .bigban h2{color:#fff}
+[data-theme="inverted"] .bigban p{color:rgba(255,255,255,.75)}
+[data-theme="inverted"] .bigban::after{background:radial-gradient(120% 95% at 50% 45%,rgba(37,47,54,.35) 0%,rgba(37,47,54,.85) 100%)}
+[data-theme="inverted"] .heaven{background:#2B4157}
+[data-theme="inverted"] .heaven .l{background:#2B4157;color:#fff}
+[data-theme="inverted"] .heaven .l h2{color:#fff}
+[data-theme="inverted"] .heaven .l .kick,[data-theme="inverted"] .heaven .l .kick::before{color:rgba(255,255,255,.75);background:rgba(255,255,255,.5)}
+[data-theme="inverted"] .heaven .l p{color:rgba(255,255,255,.75)}
+[data-theme="inverted"] .offs li{color:rgba(255,255,255,.85);border-top-color:rgba(255,255,255,.15);border-bottom-color:rgba(255,255,255,.15)}
+[data-theme="inverted"] .offs b{color:rgba(255,255,255,.6)}
+[data-theme="inverted"] .heaven .m svg rect:first-child{fill:#34506B}
+[data-theme="inverted"] .heaven .m svg path:first-of-type{fill:#4A6A89}
+[data-theme="inverted"] .heaven .m svg text{fill:rgba(255,255,255,.75)}
+[data-theme="inverted"] .tcard{background:#34506B;border-color:rgba(255,255,255,.12);box-shadow:0 26px 50px -42px rgba(0,0,0,.6)}
+[data-theme="inverted"] .tcard:hover{box-shadow:0 34px 56px -38px rgba(0,0,0,.6)}
+[data-theme="inverted"] .tcard .q{color:rgba(255,255,255,.25)}
+[data-theme="inverted"] .tcard p{color:rgba(255,255,255,.75)}
+[data-theme="inverted"] .tcard .who{border-top-color:rgba(255,255,255,.2)}
+[data-theme="inverted"] .tcard .who b{color:#fff}
+[data-theme="inverted"] .tcard .who span{color:rgba(255,255,255,.6)}
+[data-theme="inverted"] .tcard .av{background:rgba(255,255,255,.1);color:#fff}
+[data-theme="inverted"] footer{background:#2B4157;color:#fff}
+[data-theme="inverted"] footer h4{color:#fff}
+[data-theme="inverted"] footer a{color:rgba(255,255,255,.85)}
+[data-theme="inverted"] footer a:hover{color:#fff}
+[data-theme="inverted"] .legal{border-top-color:rgba(255,255,255,.15);color:rgba(255,255,255,.5)}
+[data-theme="inverted"] .btn-forest{background:#fff;color:#3D5C7A}
+[data-theme="inverted"] .btn-forest:hover{background:rgba(255,255,255,.9);box-shadow:0 16px 30px -18px rgba(0,0,0,.5)}
+[data-theme="inverted"] .btn-white{background:#fff;color:#3D5C7A}
+[data-theme="inverted"] .btn-white:hover{background:rgba(255,255,255,.9)}
+[data-theme="inverted"] .btn-ghost{box-shadow:inset 0 0 0 1px rgba(255,255,255,.6);color:#fff;background:transparent}
+[data-theme="inverted"] .btn-ghost:hover{background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1px #fff;color:#fff}
+[data-theme="inverted"] .btn-ghost-w{box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.5);color:#fff}
+[data-theme="inverted"] .btn-ghost-w:hover{background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1.5px #fff}
+[data-theme="inverted"] .btn-solid-w{background:#fff;color:#3D5C7A}
+[data-theme="inverted"] .btn-solid-w:hover{background:rgba(255,255,255,.9)}
+[data-theme="inverted"] .btn-primary{background:#fff;color:#3D5C7A}
+[data-theme="inverted"] .btn-primary:hover{background:rgba(255,255,255,.9)}
+[data-theme="inverted"] .btn-outline{box-shadow:inset 0 0 0 1px #fff;color:#fff}
+[data-theme="inverted"] .btn-outline:hover{box-shadow:inset 0 0 0 1px #fff;color:#fff;background:rgba(255,255,255,.1)}
+[data-theme="inverted"] .btn-f{background:#fff;color:#3D5C7A}
+[data-theme="inverted"] .btn-f:hover{background:rgba(255,255,255,.9)}
+[data-theme="inverted"] .btn-o{box-shadow:inset 0 0 0 1px #fff;color:#fff}
+[data-theme="inverted"] .btn-o:hover{background:rgba(255,255,255,.1)}
+[data-theme="inverted"] .rail .all{background:#4A6A89}
+[data-theme="inverted"] .rail .all h3{color:#fff}
+[data-theme="inverted"] .rail .all span{color:rgba(255,255,255,.75)}
+[data-theme="inverted"] .since{background:#4A6A89;color:#fff;border-color:#3D5C7A}
+[data-theme="inverted"] .collage>div:nth-child(4){border-color:#3D5C7A}
+[data-theme="inverted"] .arrows button{background:transparent;border-color:rgba(255,255,255,.4);color:#fff}
+[data-theme="inverted"] .arrows button:hover{background:#fff;color:#3D5C7A;border-color:#fff}
+[data-theme="inverted"] .arrows button:disabled{background:transparent;color:rgba(255,255,255,.3);border-color:rgba(255,255,255,.2)}
+[data-theme="inverted"] .dots button{background:rgba(255,255,255,.25)}
+[data-theme="inverted"] .dots button[aria-current="true"]{background:#fff}
+[data-theme="inverted"] .hero-ctrl .count{color:rgba(255,255,255,.6)}
+[data-theme="inverted"] .cta{background:#34506B;color:#fff}
+[data-theme="inverted"] .cta h2{color:#fff}
+[data-theme="inverted"] .cta p{color:rgba(255,255,255,.75)}
+[data-theme="inverted"] .cta .kick{color:rgba(255,255,255,.6)}
+[data-theme="inverted"] .prog{background:#34506B;border-color:rgba(255,255,255,.2)}
+[data-theme="inverted"] .bar{background:rgba(255,255,255,.15)}
+[data-theme="inverted"] .bar i{background:#fff}
+[data-theme="inverted"] .sticky{background:#3D5C7A}
+[data-theme="inverted"] .tag{background:#34506B;color:#fff}
+[data-theme="inverted"] .chip{border-color:rgba(255,255,255,.5);color:#fff}
+[data-theme="inverted"] .chip.on{background:#fff;color:#3D5C7A;border-color:#fff}
+[data-theme="inverted"] .ctabox{background:#34506B;border-color:rgba(255,255,255,.2)}
+[data-theme="inverted"] .ctabox-t b{color:#fff}
+[data-theme="inverted"] .ctabox-t p{color:rgba(255,255,255,.75)}
+[data-theme="inverted"] .pic{background:#34506B}
+[data-theme="inverted"] .loc{color:rgba(255,255,255,.6)}
+[data-theme="inverted"] .meta{border-top-color:rgba(255,255,255,.2);border-bottom-color:rgba(255,255,255,.2)}
+[data-theme="inverted"] .meta div{border-right-color:rgba(255,255,255,.2)}
+[data-theme="inverted"] .meta span{color:rgba(255,255,255,.6)}
+[data-theme="inverted"] .meta b{color:#fff}
+[data-theme="inverted"] .body h3{color:#fff}
+[data-theme="inverted"] .banner{background:#2B4157;color:#fff}
+[data-theme="inverted"] .crumb{color:rgba(255,255,255,.6)}
+[data-theme="inverted"] .crumb a{color:#fff}
+[data-theme="inverted"] .phead h1{color:#fff}
+[data-theme="inverted"] .phead .loc{color:rgba(255,255,255,.75)}
+[data-theme="inverted"] .phead .loc svg{stroke:#fff}
+[data-theme="inverted"] .specs div{border-bottom-color:rgba(255,255,255,.2)}
+[data-theme="inverted"] .specs span{color:rgba(255,255,255,.6)}
+[data-theme="inverted"] .specs b{color:#fff}
+[data-theme="inverted"] .feats li{color:#fff;border-bottom-color:rgba(255,255,255,.2)}
+[data-theme="inverted"] .feats .ck{stroke:#fff}
+[data-theme="inverted"] .amen span{color:rgba(255,255,255,.75)}
+[data-theme="inverted"] .amen span::before{background:#fff}
+[data-theme="inverted"] .gallery figcaption{background:rgba(37,47,54,.75)}
+[data-theme="inverted"] .near li{border-bottom-color:rgba(255,255,255,.2)}
+[data-theme="inverted"] .near .place{color:#fff}
+[data-theme="inverted"] .near .dist{color:rgba(255,255,255,.6)}
+[data-theme="inverted"] .stats{border-top-color:rgba(255,255,255,.2);border-bottom-color:rgba(255,255,255,.2)}
+[data-theme="inverted"] .stats div{border-left-color:rgba(255,255,255,.2)}
+[data-theme="inverted"] .stats span{color:rgba(255,255,255,.6)}
+[data-theme="inverted"] .stats b{color:#fff}
+[data-theme="inverted"] .prose p{color:rgba(255,255,255,.75)}
+[data-theme="inverted"] .subhead{color:rgba(255,255,255,.6)}
+[data-theme="inverted"] .fine{color:rgba(255,255,255,.6)}
+[data-theme="inverted"] .card-meta{border-top-color:rgba(255,255,255,.2);border-bottom-color:rgba(255,255,255,.2)}
+[data-theme="inverted"] .card-meta div{border-left-color:rgba(255,255,255,.2)}
+[data-theme="inverted"] .card-meta dt{color:rgba(255,255,255,.6)}
+[data-theme="inverted"] .card-meta dd{color:#fff}
+[data-theme="inverted"] .card-loc{color:rgba(255,255,255,.6)}
+[data-theme="inverted"] .card-loc .pin{stroke:rgba(255,255,255,.6)}
+[data-theme="inverted"] .flogo-light{display:block;filter:brightness(0) invert(1)}
+[data-theme="inverted"] .flogo-dark{display:none!important}
+/* Inverted — mobile menu */
+[data-theme="inverted"] .hdr.open{background:#34506B;border-bottom-color:rgba(255,255,255,.2)}
+[data-theme="inverted"] .hdr.open nav{background:#34506B;border-bottom-color:rgba(255,255,255,.2);box-shadow:0 24px 40px -28px rgba(0,0,0,.6)}
+[data-theme="inverted"] .hdr.open nav a{color:#fff}
+[data-theme="inverted"] .hdr.open nav a.on{color:#fff;opacity:.7}
+[data-theme="inverted"] .hdr.open .logo .logo-light{display:block;filter:brightness(0) invert(1)}
+[data-theme="inverted"] .hdr.open .logo .logo-dark{display:none}
+[data-theme="inverted"] .hdr.open .icon-btn{background:transparent;border-color:rgba(255,255,255,.2);color:#fff}
+[data-theme="inverted"] .hdr.open .menu-btn{border-color:#fff;color:#fff}
+/* Inverted — transition */
+[data-theme="inverted"] body,[data-theme="inverted"] .hdr,[data-theme="inverted"] .card,[data-theme="inverted"] .tcard,[data-theme="inverted"] footer,[data-theme="inverted"] .about,[data-theme="inverted"] .tst,[data-theme="inverted"] .bigban,[data-theme="inverted"] .heaven,[data-theme="inverted"] .btn,[data-theme="inverted"] .icon-btn,[data-theme="inverted"] .vtab,[data-theme="inverted"] .vpanel,[data-theme="inverted"] .sticky{transition:background .3s ease,color .3s ease,border-color .3s ease,box-shadow .3s ease}
+/* Inverted — hide sun icon, show moon */
+[data-theme="inverted"] .theme-btn .i-sun{display:none}
+[data-theme="inverted"] .theme-btn .i-moon{display:block}
+[data-theme="inverted"] .theme-btn .i-palette{display:none}
+/* Inverted — since badge border */
+[data-theme="inverted"] .since{border-color:#3D5C7A}
+[data-theme="inverted"] .collage>div:nth-child(4){border-color:#3D5C7A}
+@media(max-width:620px){[data-theme="inverted"] .since{border-color:#3D5C7A}[data-theme="inverted"] .sticky{background:#3D5C7A}}
+
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/></symbol>
+<symbol id="i-palette" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18V3z" fill="currentColor" opacity=".3"/><circle cx="9" cy="9" r="1.5" fill="currentColor"/><circle cx="15" cy="9" r="1.5" fill="currentColor"/><circle cx="9" cy="15" r="1.5" fill="currentColor"/></symbol>
+</svg>
+
+<header class="hdr">
+  <div class="wrap">
+    <a class="logo" href="ODL-homepage.html"><img class="logo-light" src="logos/Logo%20for%20white%20background.png" alt="ODL"><img class="logo-dark" src="logos/Logo%20for%20stale%20background.jpg" alt="ODL"><span class="tagline">Experience the difference</span></a>
+    <nav aria-label="Main">
+      <a href="ODL-homepage.html">Home</a>
+      <a class="on" href="projects.html" aria-current="page">Projects</a>
+      <a href="ODL-homepage.html#about">About</a>
+      <a href="ODL-homepage.html#contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <button class="icon-btn theme-btn" type="button" id="themeBtn" aria-label="Switch theme" title="Switch theme"><svg class="i-sun" aria-hidden="true"><use href="#i-sun"/></svg><svg class="i-moon" aria-hidden="true" style="display:none"><use href="#i-moon"/></svg><svg class="i-palette" aria-hidden="true" style="display:none"><use href="#i-palette"/></svg></button>
+      <button class="icon-btn search-btn" type="button" aria-label="Search projects"><svg aria-hidden="true"><use href="#i-search"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <nav class="crumb" aria-label="Breadcrumb">
+    <a href="ODL-homepage.html">Home</a><span class="sep" aria-hidden="true">/</span><a href="projects.html">Projects</a><span class="sep" aria-hidden="true">/</span><span id="crumbName" aria-current="page">…</span>
+  </nav>
+
+  <header class="phead">
+    <span class="kick" id="kick">Project</span>
+    <h1 id="name">…</h1>
+    <p class="loc"><svg aria-hidden="true"><use href="#i-pin"/></svg><span id="loc"></span></p>
+  </header>
+
+  <section class="hero" aria-label="Project gallery">
+    <figure class="main">
+      <img id="mImg" src="images/dream_shore.png" alt="Project photograph" loading="eager" fetchpriority="high" decoding="async">
+      <span class="tag"><i id="dot"></i><span id="st"></span></span>
+    </figure>
+    <div class="thumbs" id="thumbs"></div>
+  </section>
+
+  <section class="stats-wrap" aria-label="Project at a glance">
+    <div class="stats" id="stats"></div>
+  </section>
+
+  <section class="sec info">
+    <div>
+      <header class="shead"><span class="kick">Overview</span><h2>About this project</h2></header>
+      <div class="prose"><p id="desc"></p><p id="desc2"></p></div>
+    </div>
+    <div>
+      <header class="shead"><span class="kick">Specifications</span><h2>Project facts</h2></header>
+      <div class="specs" id="specs"></div>
+      <div class="fact-actions">
+        <a class="btn btn-primary" href="tel:+8801313197474"><svg aria-hidden="true"><use href="#i-phone"/></svg>Book a visit</a>
+        <a class="btn btn-wa" href="https://wa.me/8801313197474"><svg aria-hidden="true"><use href="#i-chat"/></svg>WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <header class="shead"><span class="kick">Highlights</span><h2>Key features</h2></header>
+    <ul class="feats" id="feats"></ul>
+    <p class="subhead">Facilities included</p>
+    <ul class="amen" id="amen"></ul>
+  </section>
+
+  <section class="sec">
+    <header class="shead"><span class="kick">Gallery</span><h2>More pictures</h2></header>
+    <div class="gallery" id="gal"></div>
+  </section>
+
+  <section class="sec">
+    <header class="shead"><span class="kick">Progress</span><h2>Construction progress</h2></header>
+    <div class="prog">
+      <div class="prow">
+        <b id="progNote"></b>
+      </div>
+      <div class="bar"><i id="progBar"></i></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <header class="shead"><span class="kick">Neighbourhood</span><h2>Location &amp; nearby</h2></header>
+    <ul class="near" id="near"></ul>
+  </section>
+
+  <section class="sec" aria-label="Enquire">
+    <div class="cta">
+      <div>
+        <span class="kick">Visit</span>
+        <h2>Want to see it in person?</h2>
+        <p>Visit the site or meet our sales team to walk through an apartment and talk through the plans.</p>
+      </div>
+      <div class="cta-a">
+        <a class="btn btn-solid-w" href="tel:+8801313197474"><svg aria-hidden="true"><use href="#i-phone"/></svg>Book a visit</a>
+        <a class="btn btn-wa" href="https://wa.me/8801313197474"><svg aria-hidden="true"><use href="#i-chat"/></svg>WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <header class="shead"><span class="kick">Explore</span><h2>Related projects</h2></header>
+    <div class="related-grid" id="related"></div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p style="margin:0">© 2026 ODL — demo content</p>
+    <nav class="fnav" aria-label="Footer">
+      <a href="ODL-homepage.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="tel:+8801313197474">+880 1313 197474</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+const P=[
+{id:"tranquility-peak",name:"Tranquility Peak",loc:"Sector-13, Jolshiri Abashon, Dhaka",status:"ongoing",color:"#8A6D3B",img:"images/tranquility_peak.png",size:"1,650–1,900 sft",floor:"G+9",land:"5 katha",units:"18 units",handover:"Dec 2027",price:"Starting ৳1.25 Cr",beds:"3 beds",baths:"4 baths",facing:"South-facing",road:"25 ft front road",done:65,note:"Jun 2027",desc:"A south-facing G+9 building with deep planted balconies that open to the lake breeze, tall windows, warm wood balcony ceilings and a green roof.",desc2:"Each floor holds two three-bedroom units with attached baths, a servant quarter and a 120 sft planted balcony facing the lake. Structure work is 65% complete, with handover targeted for Dec 2027.",feats:["120 sft planted lake-facing balcony","3 beds + 4 baths + servant quarter","South-facing, full lake breeze","Earthquake-resilient RCC frame","Imported fittings & 60x60 floor tiles","Dedicated parking + storage per unit"],amen:["Lake view","Green balcony","Lift","Generator","Parking","Rooftop garden","CCTV","Gas","Community hall","Prayer room"],near:[["Jolshiri lake","2 min walk"],["Central Mosque","5 min"],["English medium school","7 min"],["300 ft Purbachal highway","10 min"],["Main gate, Jolshiri Abashon","5 min"]]},
+{id:"dream-shore",name:"Dream Shore",loc:"Sector-14, Jolshiri Abashon, Dhaka",status:"ongoing",color:"#8A6D3B",img:"images/dream_shore.png",size:"1,800 sft",floor:"G+9",land:"5 katha",units:"16 units",handover:"Jun 2027",price:"Starting ৳1.30 Cr",beds:"3 beds",baths:"3 baths",facing:"Lake-facing",road:"30 ft front road",done:45,note:"Jun 2027",desc:"Family-size three-bedroom homes set a short walk from the lake, arranged around a generous living-and-dining space, two balconies and cross ventilation throughout.",desc2:"Every floor holds 1,800 sft three-bedroom units with a wide living-and-dining, two balconies and cross ventilation. Structure work is 45% complete, with handover targeted for Jun 2027.",feats:["Two balconies per unit","1,800 sft family-size layout","Cross ventilation, daylight in every room","Lake-facing rooftop garden","Double lift + standby generator","Children's play corner on ground floor"],amen:["Lake view","2 balconies","Double lift","Generator","Parking","Rooftop garden","CCTV","Gas","Kids play area","Driver waiting room"],near:[["Jolshiri lake","3 min walk"],["Playground, Sector-14","4 min"],["English medium school","6 min"],["Daily market","5 min"],["300 ft Purbachal highway","12 min"]]},
+{id:"serenity",name:"Serenity",loc:"Sector-12, Jolshiri Abashon, Dhaka",status:"ongoing",color:"#8A6D3B",img:"images/rsz_serenity.png",size:"2,100 sft",floor:"G+9",land:"7 katha",units:"12 units",handover:"Mar 2028",price:"Starting ৳1.60 Cr",beds:"4 beds",baths:"4 baths",facing:"South-east facing",road:"40 ft avenue road",done:30,note:"Mar 2028",desc:"Generous 2,100 sft apartments for joint families, with four bedrooms, a wide front road and the option of double parking.",desc2:"Four-bedroom homes of 2,100 sft sit on a wide 40 ft avenue, with separate family and guest living spaces and an optional double parking bay. Structure work is 30% complete, with handover targeted for Mar 2028.",feats:["4 beds + 4 baths, 2 living spaces","2,100 sft on 7 katha land","Only 12 units — low density","Double parking option","Wide 40 ft avenue frontage","Servant bed with bath"],amen:["Avenue view","Green balcony","Double lift","Generator","Double parking","Rooftop lounge","CCTV","Gas","Gym","Community hall"],near:[["Sector-12 park","2 min"],["Jolshiri lake","6 min"],["English medium school","5 min"],["Hospital","12 min"],["300 ft Purbachal highway","10 min"]]},
+{id:"bela-sheshe",name:"Bela Sheshe",loc:"Sector-11, Jolshiri Abashon, Dhaka",status:"handover",color:"#5A7D6A",img:"images/bela_sheshe.png",size:"1,550 sft",floor:"G+8",land:"5 katha",units:"18 units",handover:"Ready / Handed over",price:"Sold out demo",beds:"3 beds",baths:"3 baths",facing:"East-facing",road:"25 ft front road",done:100,note:"Handed over — fully occupied",desc:"A completed project, kept in the portfolio as a ready-home example with owner references.",desc2:"Handed over in 2024 — all 18 units are sold and occupied. Ask us for owner references or the current resale list if a ready 1,550 sft home is what you need.",feats:["Ready home — see the actual flat","1,550 sft efficient 3-bed layout","Fully occupied, active welfare association","Handover documents & snag record available","Owner references on request","Resale assistance for buyers"],amen:["Lake breeze","Balcony garden","Lift","Generator","Parking","Rooftop garden","CCTV","Piped gas","Welfare association","Caretaker + security"],near:[["Jolshiri lake","4 min walk"],["Sector-11 mosque","3 min"],["Primary school","5 min"],["Daily market","6 min"],["Main gate, Jolshiri Abashon","8 min"]]},
+{id:"lakeshore",name:"Lakeshore Heights",loc:"Lake Front, Jolshiri Abashon",status:"upcoming",color:"#3D5C7A",img:"images/lakeshore.jpg",size:"1,500 sft",floor:"G+10",land:"6 katha",units:"20 units",handover:"2029 (upcoming)",price:"Pre-launch demo",beds:"3 beds",baths:"3 baths",facing:"West lake-facing",road:"30 ft lake drive",done:10,note:"Pre-launch — booking opens soon",desc:"An upcoming lake-front launch, with booking set to open shortly and pre-launch pricing available on enquiry.",desc2:"Our next lake-front project — G+10 with direct lake views from the fourth floor up. Piling design is approved and booking opens after final clearance. Join the priority list for pre-launch pricing.",feats:["Direct lake view from 4th floor up","1,500 sft smart 3-bed plans","G+10 with 3 high-speed lifts","Infinity-edge rooftop pool (planned)","Lake-drive promenade access","Pre-launch priority pricing"],amen:["Full lake view","Sunset balconies","3 lifts","Generator","Basement parking","Rooftop pool (planned)","CCTV","Gas","Gym","Community lounge"],near:[["Jolshiri lake","On the bank"],["Lake promenade","1 min"],["Boating point (planned)","5 min"],["Sector-13 commercial","8 min"],["300 ft Purbachal highway","10 min"]]},
+{id:"nil-digonto",name:"Nil Digonto",loc:"Sector-15, Jolshiri Abashon, Dhaka",status:"handover",color:"#5A7D6A",img:"images/nil-digonto.jpg",size:"1,400–1,600 sft",floor:"G+8",land:"4.5 katha",units:"16 units",handover:"Ready / Handed over",price:"Resale demo",beds:"2–3 beds",baths:"3 baths",facing:"North-east facing",road:"20 ft inner road",done:100,note:"Handed over — resale available",desc:"Compact ready homes of 1,400 sft, ideal for small families, with a few resale units still available.",desc2:"Ready homes of 1,400–1,600 sft suit small families or a first Jolshiri address. A few resale units are available — visit a real flat before you decide.",feats:["Ready 1,400 sft compact homes","Ideal first home in Jolshiri","See the actual flat before booking","Clear title & handover papers","Low service charge, lean management","Resale units available now"],amen:["Open view","Balcony","Lift","Generator","Parking","Rooftop garden","CCTV","Piped gas","Security","Caretaker"],near:[["Sector-15 park","3 min"],["Jolshiri lake","8 min walk"],["Primary school","4 min"],["Mosque","3 min"],["Main gate, Jolshiri Abashon","10 min"]]}];
+
+const cap=s=>s?s.charAt(0).toUpperCase()+s.slice(1):"";
+const $=id=>document.getElementById(id);
+const id=new URLSearchParams(location.search).get("id")||"tranquility-peak";
+const p=P.find(x=>x.id===id)||P[0];
+const status=cap(p.status);
+
+/* --- title block --- */
+document.title=p.name+" | ODL";
+$("name").textContent="ODL "+p.name;
+$("crumbName").textContent=p.name;
+$("loc").textContent=p.loc;
+$("kick").textContent=status;
+$("st").textContent=status;
+$("dot").style.background=p.color;
+
+/* --- about --- */
+$("desc").textContent=p.desc;
+$("desc2").textContent=p.desc2;
+
+/* --- stats strip --- */
+$("stats").innerHTML=[
+  ["Price",p.price],
+  ["Apartment size",p.size],
+  ["Handover",p.handover],
+  ["Status",status]
+].map(([k,v])=>`<div><span>${k}</span><b>${v}</b></div>`).join("");
+
+/* --- project facts --- */
+$("specs").innerHTML=[
+  ["Status",status],
+  ["Price",p.price],
+  ["Apartment size",p.size],
+  ["Floors",p.floor],
+  ["Land",p.land],
+  ["Units",p.units],
+  ["Bed / Bath",p.beds+" / "+p.baths],
+  ["Facing",p.facing],
+  ["Front road",p.road],
+  ["Handover",p.handover]
+].map(([k,v])=>`<div><span>${k}</span><b>${v}</b></div>`).join("");
+
+/* --- key features & facilities --- */
+$("feats").innerHTML=p.feats.map(f=>`<li><svg class="ck" aria-hidden="true"><use href="#i-check"/></svg><span>${f}</span></li>`).join("");
+$("amen").innerHTML=p.amen.map(a=>`<li><span>${a}</span></li>`).join("");
+
+/* --- gallery hero: thumbnails swap the main image --- */
+const mImg=$("mImg"),thumbs=$("thumbs");
+function setMain(src,alt){
+  mImg.src=src;
+  if(alt)mImg.alt=alt;
+}
+thumbs.innerHTML=P.map(x=>`<button type="button" data-src="${x.img}" aria-label="View ${x.name}" class="${x.img===p.img?"on":""}"><img src="${x.img}" alt="${x.name}" loading="lazy" decoding="async"></button>`).join("");
+thumbs.querySelectorAll("button").forEach(btn=>btn.addEventListener("click",()=>{
+  const src=btn.querySelector("img");
+  setMain(btn.dataset.src,src?src.alt:"");
+  thumbs.querySelectorAll("button").forEach(b=>b.classList.remove("on"));
+  btn.classList.add("on");
+}));
+
+/* --- more pictures --- */
+$("gal").innerHTML=P.map(x=>`<figure role="button" tabindex="0" aria-label="View ${x.name}"><img src="${x.img}" alt="${x.name} — project photograph" loading="lazy" decoding="async"><figcaption>${x.name}</figcaption></figure>`).join("");
+document.querySelectorAll("#gal figure").forEach(fig=>{
+  const open=()=>{
+    const img=fig.querySelector("img");
+    setMain(img.src,img.alt);
+    window.scrollTo({top:0,behavior:"smooth"});
+  };
+  fig.addEventListener("click",open);
+  fig.addEventListener("keydown",e=>{
+    if(e.key==="Enter"||e.key===" "){e.preventDefault();open();}
+  });
+});
+
+/* --- construction progress --- */
+$("progBar").style.width=p.done+"%";
+$("progNote").textContent="Handover: "+p.note;
+
+/* --- location & nearby --- */
+$("near").innerHTML=p.near.map(n=>`<li><span class="place">${n[0]}</span><span class="dist">${n[1]}</span></li>`).join("");
+
+/* --- related projects --- */
+$("related").innerHTML=P.filter(x=>x.id!==p.id).slice(0,3).map(r=>{
+  const href="project.html?id="+r.id;
+  return `<article class="card">
+  <a class="card-media" href="${href}" tabindex="-1" aria-hidden="true"><img src="${r.img}" alt="${r.name}" loading="lazy" decoding="async"><span class="tag"><i style="background:${r.color}"></i>${cap(r.status)}</span></a>
+  <div class="card-body">
+    <p class="card-loc"><svg class="pin" aria-hidden="true"><use href="#i-pin"/></svg>${r.loc}</p>
+    <h3><a href="${href}">${r.name}</a></h3>
+    <dl class="card-meta">
+      <div><dt>Size</dt><dd>${r.size}</dd></div>
+      <div><dt>Floors</dt><dd>${r.floor}</dd></div>
+      <div><dt>Handover</dt><dd>${r.handover}</dd></div>
+    </dl>
+    <a class="btn btn-primary card-cta" href="${href}"><svg aria-hidden="true"><use href="#i-arrow"/></svg>View project</a>
+  </div>
+</article>`;
+}).join("");
+
+/* --- theme --- */
+const themeBtn=$("themeBtn");
+const THEMES=["light","dark","inverted"];
+function getTheme(){try{return localStorage.getItem("odl-theme")||"light";}catch(e){return "light";}}
+function applyTheme(t){
+  document.documentElement.setAttribute("data-theme",t==="light"?"":t);
+  document.body.classList.toggle("dark",t==="dark");
+  const icons=themeBtn.querySelectorAll("svg");
+  icons.forEach(i=>i.style.display="none");
+  if(t==="light")icons[0].style.display="block";
+  else if(t==="dark")icons[1].style.display="block";
+  else icons[2].style.display="block";
+  themeBtn.setAttribute("aria-label","Switch theme (current: "+t+")");
+  try{localStorage.setItem("odl-theme",t);}catch(e){}
+}
+let initTheme=getTheme();
+applyTheme(initTheme);
+themeBtn.addEventListener("click",()=>{const c=getTheme();const n=THEMES[(THEMES.indexOf(c)+1)%THEMES.length];applyTheme(n);});
+</script>
+</body>
+</html>
